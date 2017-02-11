@@ -1,0 +1,55 @@
+filename = './data/nonlinxor.txt' ;
+learning_set = readData (filename) ;
+learning_set
+
+% Définition de l'architecture du Perceptron Multicouches
+net = [] ;
+net.dim_exemples  = learning_set.dim_exemples ;
+net.dim_cachees = 2 ;
+net.dim_output = learning_set.nb_class ;
+
+% Lancement de l'apprentissage
+n_epochs      = 1000 ;
+mse           = 0.01 ;
+learning_rate = 0.01 ;
+disp ('Apprentissage PMC :') ;
+[net stat] = PMCLearning (net , learning_set , learning_rate , mse , n_epochs) ;
+
+% Affichage des statistiques
+figure(1) ;
+[ax,h1,h2] = plotyy (1:net.n_epochs,[stat(:).mse] ,1:net.n_epochs,[stat(:).err_exemple],'plot') ;
+
+%[ax,h1,h2] = plotyy (1:net.n_epochs,[stat(:).mse] ,1:net.n_epochs,[stat(:).err_exemple],'plot') ;
+set(get(ax(1),'Ylabel'),'String','Erreur quadratique moyenne') ;
+set(get(ax(2),'Ylabel'),'String','Erreur de classification') ;
+xlabel ('Nombre de présentation de l''ensemble d''apprentissage') ;
+title (sprintf('Statistiques pour %s' , filename)) ;
+grid on
+
+stat(end).mat_conf
+
+% Affichage de l'ensemble d'apprentissage
+figure(2) ;
+axis ([0 1 0 1]) ;
+axes = [1 2] ;
+plot_exemple (axes , learning_set.matExemple , learning_set.label) ;
+
+% Génération de points dans l'espace d'entrée [0,1]x[0,1]
+
+nb_points = 70 ;
+pointsTest = rand(nb_points,learning_set.dim_exemples);
+
+% test du perceptron sur l'ensemble généré
+for i = 1:nb_points
+    o = PMCPropagation(net , pointsTest(i,:)) ;
+    [v cl] = max(o);
+    plot_output (axes , pointsTest(i,:)  , cl-1 , max(o)) ;
+end
+
+
+% Affichage des hyperplans séparateurs
+for (i = 1:net.dim_cachees)
+    plot_hyperplane (net.IH(:,i) , [0 1] , [0 1]) ;
+end
+
+

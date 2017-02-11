@@ -1,0 +1,17 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Propagation d'un exemple dans le perceptron au travers d'un neurone.
+% En entrée :
+%   neuron :  définition du neurone
+%   exemple : exemple présenté 
+
+% En sortie :
+%   output  : Valeur prédire par le perceptron
+
+% Attention : à l'entrée doit être ajoutée une entrée supplémentaire mise à 1 
+% correspondant au biais  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function output = neuron_propagation (neuron , exemple)
+
+        output=tanh(dot(neuron.weights',[exemple 1]));
+end
