@@ -1,0 +1,78 @@
+addpath('Toolbox/libsvm-mat-2.88-1/');
+load Data/usps.mat
+
+%%Example pour A
+%%Train labels and patterns
+itenA=4;
+
+%Train pour A
+train_labels_A = find(train_labels==itenA);
+train_patterns_A = train_patterns(:,train_labels_A(:));
+train_labels_A = train_labels(train_labels_A);
+
+
+
+%%Validation pour A
+
+test_labels_A = find(test_labels==itenA);
+test_patterns_A = test_patterns(:,test_labels_A(:));
+test_labels_A = test_labels(test_labels_A);
+test_patterns_A=test_patterns_A';
+
+image_base_lab=train_labels_A(1);
+image_base_pattern=train_patterns_A(1,:);
+
+train_patterns_A=train_patterns_A';
+
+p = rand();
+
+%prepare train
+nbFolders = 10;
+Cs = [1 10 100];
+Ks = [1 0.1 0.01];
+%{
+%Faire la validationcroisseee
+[I,J] = ValidationCroisee(train_patterns_AB, train_labels_AB, nbFolders, Cs, Ks);
+
+%prendre les meiux valeurs
+bestCs = Cs(I(1));
+bestKs = Ks(J(1));
+
+%modèle les param pour le svm
+param = ['-s 0 ', num2str(bestCs), ' -g ', num2str(bestKs)];
+
+
+%teacher example
+%model = svmtrain(train_lab, train_vec, param);
+
+
+%Train!
+model = svmtrain(train_labels_AB, train_patterns_AB, param);
+
+%validate!!!
+[predict_label, accuracy, dec_values] = svmpredict(test_labels_AB, test_patterns_AB, model);
+
+
+
+
+%plot errors
+%compute all errors
+errors = find((test_labels_AB-predict_label)~=0);
+%number of errors
+nbErrors = length(errors);
+
+%param to plot size
+n = ceil(sqrt(nbErrors))
+
+D = [test_labels_A;test_labels_B];
+
+%print all images error
+for i=1:nbErrors
+
+    subplot(n,n,i);
+ 
+    M = reshape(test_patterns(:,D(errors(i))),16,16);
+
+    imagesc(M');
+end
+%}
