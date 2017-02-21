@@ -23,7 +23,6 @@ p = (50*(rand())+26);      %between 10% et 90% of my image size (256px)
 p=int32(256-p);
 
 
-pg=[pg (1.0-i/256.0)];	
 %randomize le vector
 train_pattern=randperm(256);;
 
