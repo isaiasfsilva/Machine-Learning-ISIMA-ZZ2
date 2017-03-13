@@ -1,0 +1,15 @@
+2.1
+        Foi criada uma funcao generate_base_1 que recebe como parametro a o tamanho do conjunto de treino e do de teste, a diferença de centro entre os conjuntos -1 e 1 e também a variancia do conjunto.
+        
+        O metodo generqte_base_1 retorna o conjunto de treino com seus labels e o conjunto de test com seus labels.
+        
+2.2 - TO DO
+
+
+3.1 -
+        Ao utilisar a base 1 no PMC, foi possivel verificar o impacto de tres principais parametros: A diferenca do centro; A variancia; e o numero de camadas ocultas do PMC.
+        Se o centro dos pontos é pequeno, é mais dificil para o PMC aprender. Se a variancia de cada conjunto de pontos é muito alta, também representa um problema. Se a distancia dos centros é muito pequena e a variancia é alta, o PMC erra quase todos os casos de teste. Em contrapartida se a distancia dos centros é grande e variancia pequena, o PMC acerta quase todos as instancias de teste.
+        A quantidade de camadas ocultas influencia diretamente na capacidade de generalizacao do PMC, isto é, ele passa a ter uma melhor acuracia. Para a base 1, um baixo numero de camadas ocultas (2 à 4) apresentou uma melhor acuracia que o PMC com mais camadas ocultas.
+        
+        
+3.2
