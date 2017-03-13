@@ -23,7 +23,9 @@
  
  2 - SVM to recognize images with numbers
  
- 3 - ...
+ 3 - Rebuilding image by kernel-based Regression
+
+ 4 - PMC / SVM comparison
 
 
 
